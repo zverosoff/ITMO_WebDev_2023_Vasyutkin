@@ -43,6 +43,10 @@ h1 {
   text-align: center;
 }
 
+.p {
+  content: center;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

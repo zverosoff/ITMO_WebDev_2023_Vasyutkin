@@ -14,6 +14,28 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.container {
+  width: 200px;
+  text-align: left;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.container3 {
+  width: 400px;
+  text-align: left;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.main {
+  display: block;
+}
+
+h1 {
+  line-height: 0.75;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -29,11 +51,6 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 #app {

@@ -1,153 +1,36 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="https://www.svgrepo.com/show/452045/js.svg" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ITMO_WebDev_2023_lesson-3-css-basic-card</title>
+    <link rel="stylesheet" href="public/reset.css" />
     <link rel="stylesheet" href="style.css" />
-    <title>ITMO_WebDev_2023_homework/homework-1-html-intro</title>
+    <link href="/dist/output.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="main">
-      <div class="container">
-        <h1>Task number 1</h1>
-
-        <p>Заголовки</p>
-        <h1>Заголовок первого уровня</h1>
-        <h2>Заголовок второго уровня</h2>
-        <h3>Заголовок третьего уровня</h3>
-        <h4>Заголовок четвертого уровня</h4>
-        <h5>Заголовок пятого уровня</h5>
-        <h6>Заголовок шестого уровня</h6>
+    <figure class="container">
+      <div class="img_hero">
+        <img src="img/image-product-desktop.jpg" alt="lesson" class="img_left" />
       </div>
-    </div>
-    <div class="main">
-      <div class="container">
-        <h1>Task number 2</h1>
-
-        <p>Параграфы</p>
-        <p>
-          <strong>Важный фрагмент текста</strong>
-          <em>Акцентированный фрагмент</em>
-          <mark>Подсвеченный фрагмент</mark>
-          <b>Текст жирным шрифтом</b>
-          <i>Текст курсивом</i>
-          <s>Перечеркнутый текст</s>
-          <small>Текст меньшего размера</small>
-          <sub>Текст нижнего индекса</sub>
-          <sup>Текст верхнего индекса</sup>
+      <div class="content">
+        <h1 class="head_category">PERFUME</h1>
+        <div class="lesson_title">
+          <h1 class="heading">Gabrielle Essence Eau De Parfum</h1>
+        </div>
+        <p class="lesson_description">
+          A floral, solar and voluptuous interpretation composed by Olivier Polge, Perfumer-Creator
+          for the House of CHANEL.
         </p>
+        <div class="lesson_details">
+          <p class="lesson_detail">$149.99</p>
+          <p class="lesson_detail"><s>$169.99</s></p>
+        </div>
+        <div class="button">
+          <a href="#"><img src="img/cart.png" alt="" height="12px" width="12px" /> Add To Card</a>
+        </div>
       </div>
-    </div>
-    <div class="main2">
-      <div class="container3">
-        <h3>Task number 3</h3>
-        <ul>
-          <li>Список 1</li>
-          <li>Список 1</li>
-          <li>Список 1</li>
-        </ul>
-        <ol>
-          <li>Список 2</li>
-          <li>Список 2</li>
-          <li>Список 2</li>
-        </ol>
-        <form>
-          <label>Поле для ввода</label>
-          <input type="text" placeholder="Ввод текста" />
-        </form>
-        <form>
-          <label for="pin">Введите пинкод</label>
-          <input type="password" id="pin" placeholder="1234" />
-        </form>
-        <form>
-          <label for="email">Введите E-mail</label>
-          <input type="email" id="email" placeholder="your-email@gmail.com" />
-        </form>
-        <form>
-          <label for="date">Дата рождения: </label> <input type="date" id="date" name="date" />
-        </form>
-
-        <form>
-          <input id="homework-1-html-intro" type="checkbox" />
-          <label for="homework-1-html-intro">Checkbox</label>
-        </form>
-        <form>
-          <label>
-            <input type="radio" name="homework-1-html-intro" value="yes" />
-            Радиокнопка для выбора "Да"
-          </label>
-          <br />
-          <label>
-            <input type="radio" name="homework-1-html-intro" value="no" />
-            Радиокнопка для выбора "Нет"
-          </label>
-        </form>
-        <script>
-          function buttonClick() {
-            var elem = document.getElementById('elem');
-            elem.innerHTML = 'Вы нажали на <b>кнопку</b>';
-          }
-        </script>
-        <input type="button" value="Нажми на кнопку" onclick="buttonClick()" />
-        <span id="elem"></span>
-
-        <h3>Task number 4</h3>
-
-        <table>
-          <caption>
-            Таблица
-          </caption>
-          <colgroup style="background-color: #0486c3">
-            <col />
-            <col style="background-color: #d79403" />
-            <col />
-          </colgroup>
-          <thead>
-            <tr>
-              <th colspan="2">Объединение строк 1</th>
-              <th>Строка 2</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr>
-              <td>Столбец 2</td>
-              <td>Строка 2</td>
-              <td>Строка 3</td>
-            </tr>
-          </tbody>
-
-          <tbody>
-            <tr>
-              <td>Столбец 3</td>
-              <td>Строка 2</td>
-              <td>Строка 3</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="main">
-      <div class="container">
-        <h3>Task number 5</h3>
-        <label>Выберите пункт:</label
-        ><select>
-          <optgroup label="Заголовок списка">
-            <option>Пункт 1</option>
-            <option>Пункт 2</option>
-            <option>Пункт 3</option>
-            <option>Пункт 4</option>
-            <option>Пункт 5</option>
-          </optgroup>
-        </select>
-
-        <h3>Task number 6</h3>
-        <h3>PNG</h3>
-        <img src="img/picture.png" alt="img" width="100" height="100" />
-        <h3>SVG</h3>
-        <object type="image/svg+xml" data="img/picture.svg" width="100" height="100"></object>
-      </div>
-    </div>
+    </figure>
   </body>
 </html>

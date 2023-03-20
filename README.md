@@ -5,5 +5,5 @@
 - Описание: Верстка карточки интернет-магазина.
 - Languages: HTML, CSS.
 - Demo: https://itmo_2023_vasyutkin.surge.sh/
-  <img src="img/screen.png">
-  <img src="img/screen_mobile.png">
+  <img src="public/img/screen.png">
+  <img src="public/img/screen_mobile.png">

@@ -6,14 +6,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tailwindcss Website</title>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&display=swap');
+
       @tailwind base;
       @tailwind components;
       @tailwind utilities;
+
+      body * {
+        font-family: 'Epilogue', sans-serif;
+      }
+
+      @layer components {
+        .btn-register {
+          @apply border-2 border-gray-500 rounded-lg px-3 py-1.5;
+        }
+      }
     </style>
   </head>
-  <body>
-    Features Company Careers About Login Register Make remote work Get your team in sync, no matter
-    your location. Streamline processes, create team rituals, and watch productivity soar. Learn
-    more
+  <body class="flex flex-col h-screen bg-amber-100/50">
+    <div class="flex flex-col">
+      <header
+        class="flex flex-row justify-between items-center px-6 py-4 font-bold text-neutral-500"
+        style="background-color: #f0f1"
+      >
+        <div class="flex flex-row gap-x-8 items-center">
+          <img class="relative top-1" src="public/logo.svg" alt="logo" />
+          <nav class="flex flex-row gap-x-6 items-center">
+            <div class="flex flex-row gap-x-2 items-center hover:text-black">
+              <div>Features</div>
+              <img src="/public/icon-arrow-down.svg" alt="icon" />
+            </div>
+            <div class="hover:text-black">Company</div>
+            <div class="hover:text-black">Careers</div>
+            <div class="hover:text-black">About</div>
+          </nav>
+        </div>
+        <div class="flex flex-row gap-x-4 items-center">
+          <div>Login</div>
+          <div class="btn-register">Register</div>
+        </div>
+      </header>
+      <main class="flex flex-row h-screen" style="background-color: rgba(0, 225, 255, 0.171)">
+        <div class="flex flex-row">
+          <div
+            class="flex flex-col w-1/2 justify-between"
+            style="background-color: rgba(255, 0, 111, 0.306)"
+          >
+            <div class="flex h-full flex-row">
+              <div class="flex flex-col gap-y-6 justify-center">
+                <div>Make remote work</div>
+                <div>
+                  Get your team in sync, no matter your location. Streamline processes, create team
+                  rituals, and watch productivity soar.
+                </div>
+
+                <div class="flex flex-row">Learn more</div>
+              </div>
+            </div>
+            <div class="flex flex-row" style="background-color: rgba(255, 0, 157, 0.415)">icon</div>
+          </div>
+          <div class="flex flex-col w-1/2" style="background-color: rgba(0, 255, 170, 0.067)">
+            <div class="h-full overflow-hidden">
+              <img
+                class="w-full h-full object-contain"
+                src="./public/image-hero-desktop.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   </body>
 </html>

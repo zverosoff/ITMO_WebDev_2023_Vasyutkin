@@ -1,28 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru_RU">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>lesson 9</title>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <style>
-      @tailwind base;
-      @tailwind components;
-      @tailwind utilities;
-    </style>
+    <title>Vite App</title>
   </head>
-  <body class="bg-teal-100/50 w-screen h-screen grid place-items-center p-12">
+  <body class="bg-teal-100/50 w-screen h-screen grid place-items-center p-12 font-sans">
     <div class="container flex flex-row w-full h-full bg-gray-200 rounded-3xl p-4">
-      <aside class="flex flex-col min-w-[144px]">
+      <aside class="flex flex-col min-w-[120px]">
         <div class="flex flex-row items-center gap-x-2 py-4">
-          <i class="iconify-inline text-teal-700 text-3xl" data-icon="ph:cube-focus-bold"> </i>
+          <i class="i-ph:cube-focus-bold text-teal-700 text-3xl"></i>
           <span class="font-bold text-xl">Taski</span>
         </div>
       </aside>
-      <main class="flex flex-col rounded-2xl w-full bg-gray-50 px-4 pt-2 pb-4 gap-y-2">
+      <main class="flex flex-col w-full bg-gray-50 rounded-2xl px-4 pt-2 pb-4 gap-y-4">
         <div class="flex flex-row justify-between items-center">
-          <div class="flex flex-col py-4">
+          <div class="flex flex-col">
             <span class="text-lg font-bold">Team tasks</span>
           </div>
           <div class="flex flex-col">
@@ -35,32 +28,93 @@
           </div>
         </div>
         <div class="flex flex-row justify-between items-center">
-          <div class="flex flex-col py-4">
-            <span class="text-sm text-neutral-400">Filters</span>
+          <div class="flex flex-col">
+            <div class="flex flex-row items-center gap-x-1 text-neutral-400">
+              <i class="i-mdi-filter hover:text-neutral-600"></i>
+              <span class="text-xs"> Filters </span>
+              <i class="i-mdi-chevron-down hover:text-neutral-600"></i>
+            </div>
           </div>
           <div class="flex flex-col">
             <div class="flex flex-row items-center gap-x-8">
-              <span class="text-sm text-neutral-400">Sort by</span>
-              <span class="text-sm text-neutral-400">Group by: Status </span>
+              <div class="flex flex-row text-neutral-400 gap-x-1">
+                <span class="text-xs">Sort by</span>
+                <i class="i-mdi-chevron-down hover:text-neutral-600"></i>
+              </div>
+              <div class="flex flex-row">
+                <div class="flex flex-col">
+                  <div class="flex flex-row text-neutral-400">
+                    <span class="text-xs">Group by:</span>
+                    <div class="flex flex-row">
+                      <span class="text-xs">Status</span>
+                      <i class="i-mdi-chevron-down hover:text-neutral-600"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="flex flex-row justify-between gap-x-4 h-full">
-          <div class="flex flex-col h-full w-1/3 bg-gray-200 rounded-xl">
-            <div class="flex flex-row justify-between items-center p-2">
-              <div class="flex flex-col items-center">
-                <span class="text-sm">To Do <span class="text-neutral-400">2</span></span>
+        <hr />
+        <div class="flex flex-row justify-between gap-x-4">
+          <div
+            class="flex flex-col h-full w-1/2 bg-gray-200 border-1 border-gray-300/50 rounded-xl p-2"
+          >
+            <div class="flex flex-row justify-between py-1 px-1">
+              <div class="flex flex-row font-bold gap-x-1">
+                <span>To Do </span>
+                <span class="text-gray-400">2</span>
               </div>
-              <div class="flex flex-col items-center">
-                <i class="iconify-inline text-neutral-400 text-xl" data-icon="material-symbols:add">
-                </i>
-                <i class="iconify-inline text-neutral-400 text-xl" data-icon="mdi:dots-horizontal">
-                </i>
+              <div class="flex flex-col text-neutral-500">+ ...</div>
+            </div>
+            <div class="flex flex-row pt-2">
+              <div class="flex flex-col justify-start w-full gap-y-4 justify-between">
+                <div
+                  class="flex flex-row shadow rounded-lg px-3 py-3 bg-neutral-50 border-1 border-neutral-100"
+                >
+                  <div class="flex flex-col w-full gap-y-3">
+                    <span class="font-bold">Layout Design</span>
+                    <div class="flex flex-row justify-between">
+                      <div class="flex flex-row gap-x-2">
+                        <div
+                          class="text-xs rounded-lg py-1 px-2 bg-neutral-200/60 text-neutral-600"
+                        >
+                          Update
+                        </div>
+                        <div
+                          class="text-xs rounded-lg py-1 px-2 bg-neutral-200/60 text-neutral-600"
+                        >
+                          Web
+                        </div>
+                      </div>
+                      <div class="flex flex-row items-center gap-x-1">
+                        <div class="i-mdi-clock-time-eight-outline text-sm text-green-600"></div>
+                        <div class="text-xs text-neutral-400">12 days left</div>
+                      </div>
+                    </div>
+                    <div class="flex flex-row -space-x-2">
+                      <span
+                        class="w-6 h-6 rounded-full bg-green-300 border-2 border-green-500"
+                      ></span>
+                      <span
+                        class="w-6 h-6 rounded-full bg-yellow-300 border-2 border-yellow-500"
+                      ></span>
+                      <span
+                        class="grid place-items-center w-6 h-6 rounded-full bg-blue-300 border-2 border-blue-500"
+                        ><span class="text-xs font-bold text-blue-600">+2</span></span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <button class="rounded-lg bg-neutral-50 w-full py-2 shadow text-neutral-500">
+                  + Add task
+                </button>
               </div>
             </div>
           </div>
         </div>
       </main>
     </div>
+    <script type="module" src="main.js"></script>
   </body>
 </html>

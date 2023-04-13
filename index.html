@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>JavaScript Classes</title>
   </head>
   <body class="bg-teal-100/50 w-screen h-screen grid place-items-center p-12 font-sans">
     <div
@@ -13,7 +13,7 @@
       <div class="flex flex-col relative min-w-[377px] bg-white p-6 rounded-2xl gap-y-4">
         <div class="flex flex-row">
           <span class="text-xl font-bold">Create task</span>
-          <button class="absolute top-4 right-4" id="btnClouseCreateTaskPopup">
+          <button class="absolute top-4 right-4" data-id="btnCloseCreateTaskPopup">
             <i
               class="i-material-symbols-cancel-outline block text-neutral-400 hover:text-neutral-800 text-2xl"
             ></i>
@@ -44,21 +44,26 @@
         </div>
         <div class="flex flex-row">
           <div class="flex flex-col w-full">
-            <label for="countries" class="ml-1 text-sm text-neutral-600">Select tag:</label>
+            <label for="tags" class="ml-1 text-sm text-neutral-600">Select tag:</label>
             <select
-              id="countries"
+              id="tags"
               class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
             >
-              <option selected>Choose a tag</option>
+              <!-- <option selected>Choose a tag</option>
               <option value="web">Web</option>
               <option value="update">Update</option>
               <option value="design">Design</option>
-              <option value="content">Content</option>
+              <option value="content">Content</option> -->
             </select>
           </div>
         </div>
         <div class="flex flex-row pt-2">
-          <button class="bg-teal-600 text-white p-2 rounded-lg w-full font-bold">Create</button>
+          <button
+            data-id="btnConfirmTaskPopup"
+            class="bg-teal-600 text-white p-2 rounded-lg w-full font-bold"
+          >
+            Create
+          </button>
         </div>
       </div>
     </div>
@@ -121,31 +126,31 @@
                 <span>To Do </span>
                 <span class="text-gray-400">2</span>
               </div>
-              <div class="flex flex-col text-neutral-500">+ ...</div>
+              <div class="flex flex-col text-neutral-500">
+                <button id="editPost(this)" class="i-material-symbols-edit-square-outline"></button>
+              </div>
             </div>
             <div class="flex flex-row pt-2">
               <div class="flex flex-col justify-start w-full gap-y-4 justify-between">
                 <div
+                  id="templateTask"
                   class="flex flex-row shadow rounded-lg px-3 py-3 bg-neutral-50 border-1 border-neutral-100"
                 >
                   <div class="flex flex-col w-full gap-y-3">
-                    <span class="font-bold">Layout Design</span>
+                    <span data-id="templateTaskTitle" class="font-bold">Layout Design</span>
                     <div class="flex flex-row justify-between">
                       <div class="flex flex-row gap-x-2">
                         <div
                           class="text-xs rounded-lg py-1 px-2 bg-neutral-200/60 text-neutral-600"
                         >
-                          Update
-                        </div>
-                        <div
-                          class="text-xs rounded-lg py-1 px-2 bg-neutral-200/60 text-neutral-600"
-                        >
-                          Web
+                          <span class="capitalize" data-id="templateTaskCoutries">None</span>
                         </div>
                       </div>
                       <div class="flex flex-row items-center gap-x-1">
                         <div class="i-mdi-clock-time-eight-outline text-sm text-green-600"></div>
-                        <div class="text-xs text-neutral-400">12 days left</div>
+                        <div class="text-xs text-neutral-400">
+                          <span data-id="templateTaskDate">00-00-2000</span>
+                        </div>
                       </div>
                     </div>
                     <div class="flex flex-row -space-x-2">

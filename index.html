@@ -3,78 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JavaScript Classes</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Taski</title>
   </head>
-  <body class="bg-teal-100/50 w-screen h-screen grid place-items-center p-12 font-sans">
+  <body
+    class="bg-sky-100/50 w-screen h-screen grid place-items-center p-12 font-sans"
+  >
     <div
-      id="popupCreateTask"
+      id="popupContainer"
       class="hidden fixed w-screen h-screen top-0 left-0 bg-black/70 z-10 grid place-items-center"
     >
-      <div class="flex flex-col relative min-w-[377px] bg-white p-6 rounded-2xl gap-y-4">
-        <div class="flex flex-row">
-          <span class="text-xl font-bold">Create task</span>
-          <button class="absolute top-4 right-4" data-id="btnCloseCreateTaskPopup">
-            <i
-              class="i-material-symbols-cancel-outline block text-neutral-400 hover:text-neutral-800 text-2xl"
-            ></i>
-          </button>
-        </div>
-        <div class="flex flex-row">
-          <div class="flex flex-col w-full">
-            <label class="ml-1 text-sm text-neutral-600" for="inpDate">Title: </label>
-            <input
-              class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200"
-              id="inpTitle"
-              type="text"
-              placeholder="e.g. Read books"
-            />
-          </div>
-        </div>
-        <div class="flex flex-row">
-          <div class="flex flex-col w-full">
-            <label class="ml-1 text-sm text-neutral-600" for="inpDate">End date: </label>
-            <input
-              class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200"
-              type="date"
-              id="inpDate"
-              name="trip-start"
-              min="2018-01-01"
-            />
-          </div>
-        </div>
-        <div class="flex flex-row">
-          <div class="flex flex-col w-full">
-            <label for="tags" class="ml-1 text-sm text-neutral-600">Select tag:</label>
-            <select
-              id="tags"
-              class="bg-neutral-100 p-1.5 rounded w-full border-1 border-neutral-200 focus:border-none"
-            >
-              <!-- <option selected>Choose a tag</option>
-              <option value="web">Web</option>
-              <option value="update">Update</option>
-              <option value="design">Design</option>
-              <option value="content">Content</option> -->
-            </select>
-          </div>
-        </div>
-        <div class="flex flex-row pt-2">
-          <button
-            data-id="btnConfirmTaskPopup"
-            class="bg-teal-600 text-white p-2 rounded-lg w-full font-bold"
-          >
-            Create
-          </button>
-        </div>
-      </div>
+      <div class="spinner"></div>
     </div>
-    <div class="container flex flex-row w-full h-full bg-gray-200 rounded-3xl p-4">
+
+    <div
+      class="container flex flex-row w-full h-full bg-gray-200 rounded-3xl p-4"
+    >
       <aside class="flex flex-col min-w-[120px]">
         <div class="flex flex-row items-center gap-x-2 py-4">
-          <i class="i-ph:cube-focus-bold text-teal-700 text-3xl"></i>
+          <i class="i-ph:cube-focus-bold text-sky-500 text-3xl"></i>
           <span class="font-bold text-xl">Taski</span>
         </div>
       </aside>
-      <main class="flex flex-col w-full bg-gray-50 rounded-2xl px-4 pt-2 pb-4 gap-y-4">
+      <main
+        class="flex flex-col w-full bg-gray-50 rounded-2xl px-4 pt-2 pb-4 gap-y-4"
+      >
         <div class="flex flex-row justify-between items-center">
           <div class="flex flex-col">
             <span class="text-lg font-bold">Team tasks</span>
@@ -82,7 +35,10 @@
           <div class="flex flex-col">
             <div class="flex flex-row items-center gap-x-8">
               <span class="text-neutral-400">Search</span>
-              <button id="btnCreateTask" class="px-4 py-2 bg-teal-600 rounded-full">
+              <button
+                id="btnCreateTask"
+                class="px-4 py-2 bg-sky-500 rounded-full hover:bg-sky-600"
+              >
                 <span class="text-white">+ Create Task</span>
               </button>
             </div>
@@ -126,48 +82,80 @@
                 <span>To Do </span>
                 <span class="text-gray-400">2</span>
               </div>
-              <div class="flex flex-col text-neutral-500">
-                <button id="editPost(this)" class="i-material-symbols-edit-square-outline"></button>
-              </div>
+              <div class="flex flex-col text-neutral-500">+ ...</div>
             </div>
             <div class="flex flex-row pt-2">
-              <div class="flex flex-col justify-start w-full gap-y-4 justify-between">
+              <div class="flex flex-col w-full gap-y-4 justify-between">
                 <div
                   id="templateTask"
                   class="flex flex-row shadow rounded-lg px-3 py-3 bg-neutral-50 border-1 border-neutral-100"
                 >
                   <div class="flex flex-col w-full gap-y-3">
-                    <span data-id="templateTaskTitle" class="font-bold">Layout Design</span>
+                    <span
+                      data-id="templateTaskTitle"
+                      class="font-bold"
+                      pointer-events-none
+                      >Layout Design</span
+                    >
                     <div class="flex flex-row justify-between">
                       <div class="flex flex-row gap-x-2">
                         <div
                           class="text-xs rounded-lg py-1 px-2 bg-neutral-200/60 text-neutral-600"
                         >
-                          <span class="capitalize" data-id="templateTaskCoutries">None</span>
+                          Update
+                        </div>
+                        <div
+                          class="text-xs rounded-lg py-1 px-2 bg-neutral-200/60 text-neutral-600"
+                        >
+                          Web
                         </div>
                       </div>
                       <div class="flex flex-row items-center gap-x-1">
-                        <div class="i-mdi-clock-time-eight-outline text-sm text-green-600"></div>
-                        <div class="text-xs text-neutral-400">
-                          <span data-id="templateTaskDate">00-00-2000</span>
-                        </div>
+                        <div
+                          class="i-mdi-clock-time-eight-outline text-sm text-sky-500"
+                        ></div>
+                        <div class="text-xs text-neutral-400">12 days left</div>
                       </div>
                     </div>
-                    <div class="flex flex-row -space-x-2">
-                      <span
-                        class="w-6 h-6 rounded-full bg-green-300 border-2 border-green-500"
-                      ></span>
-                      <span
-                        class="w-6 h-6 rounded-full bg-yellow-300 border-2 border-yellow-500"
-                      ></span>
-                      <span
-                        class="grid place-items-center w-6 h-6 rounded-full bg-blue-300 border-2 border-blue-500"
-                        ><span class="text-xs font-bold text-blue-600">+2</span></span
-                      >
+                    <div class="flex flex-row justify-between">
+                      <div class="flex flex-row -space-x-2">
+                        <span
+                          class="w-6 h-6 rounded-full bg-green-300 border-2 border-green-500"
+                        ></span>
+                        <span
+                          class="w-6 h-6 rounded-full bg-yellow-300 border-2 border-yellow-500"
+                        ></span>
+                        <span
+                          class="grid place-items-center w-6 h-6 rounded-full bg-blue-300 border-2 border-sky-500"
+                          ><span class="text-xs font-bold text-sky-600"
+                            >+2</span
+                          ></span
+                        >
+                      </div>
+                      <div class="flex flex-row gap-2">
+                        <button
+                          class="text-neutral-400 hover:text-neutral-800 text-2xl"
+                          data-btn="btnEdit"
+                        >
+                          <i
+                            class="i-material-symbols-edit block pointer-events-none"
+                          ></i>
+                        </button>
+                        <button
+                          class="text-neutral-400 hover:text-neutral-800 text-2xl"
+                          data-btn="btnDelete"
+                        >
+                          <i
+                            class="i-material-symbols-delete-rounded block pointer-events-none"
+                          ></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <button class="rounded-lg bg-neutral-50 w-full py-2 shadow text-neutral-500">
+                <button
+                  class="rounded-lg bg-neutral-50 w-full py-2 shadow text-neutral-500 hover:bg-sky-500 hover:text-white"
+                >
                   + Add task
                 </button>
               </div>

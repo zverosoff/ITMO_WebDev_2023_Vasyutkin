@@ -1,94 +1,223 @@
 import 'uno.css';
 import '@unocss/reset/tailwind.css';
-import Dom from './src/constants/DOM';
-import { randomString } from './src/utils/srtingUtils';
+import DOM from './src/constants/dom';
+import { delay } from './src/utils/timeUtils.js';
+
+const KEY_LOCAL_TASKS = 'tasks';
+
+const Tags = ['Web', 'Update', 'Design', 'Content'];
 
 class TaskVO {
-  constructor(title, date, tag) {
+  static fromJSON(json) {
+    return new TaskVO(json.id, json.title, json.date, json.tags);
+  }
+  constructor(id, title, date, tags) {
+    this.id = id;
     this.title = title;
     this.date = date;
-    this.tag = tag;
+    this.tags = tags;
   }
 }
-
-let inpTitle = document.getElementById('inpTitle');
-let inpDate = document.getElementById('inpDate');
-let countries = document.getElementById('countries');
-
-const task = new TaskVO('Read', Date.now());
 
 const getDOM = (id) => document.getElementById(id);
 const QUERY = (container, id) => container.querySelector(`[data-id="${id}"]`);
 
-const domTask = getDOM(Dom.Template.TASK);
+const domTemplateTask = getDOM(DOM.Template.TASK);
+const domTaskColumn = domTemplateTask.parentNode;
+domTemplateTask.removeAttribute('id');
+domTemplateTask.remove();
 
-const tasks = [];
-
-const selectTagsArrays = ['Web', 'Update', 'Desing', 'Content'];
-const selectList = getDOM('tags');
-
-function tagsList() {
-  let tag = '';
-  selectTagsArrays.forEach((item) => {
-    tag += `
-    <option value="${item}">${item}</option>
-    `;
-    selectList.innerHTML = tag;
-  });
-}
-
-getDOM(Dom.Button.CREATE_TASK).onclick = () => {
-  console.log('> domPopupCreateTask.classList');
-
-  const domPopupCreateTask = getDOM(Dom.Popup.CREATE_TASK);
-  const domBtnClose = QUERY(domPopupCreateTask, Dom.Button.CLOSE_POPUP_CREATE_TASK);
-  const domBtnConfirm = QUERY(domPopupCreateTask, Dom.Button.POPUP_CREATE_TASK_CONFIRM);
-  domPopupCreateTask.classList.remove('hidden');
-
-  const onClousePopup = () => {
-    domPopupCreateTask.classList.add('hidden');
-    domBtnClose.onclick = null;
-    domBtnConfirm.onclick = null;
-  };
-
-  domBtnClose.onclick = onClousePopup;
-
-  let acceptData = () => {
-    tasks.push({
-      text: inpTitle.value,
-      date: inpDate.value,
-      description: countries.value,
+async function main() {
+  const tasks = await fetch('http://localhost:3000/tasks')
+    .then((response) => response.ok && response.json())
+    .then((rawTasks) => {
+      if (rawTasks && rawTasks instanceof Array) {
+        console.log('json', rawTasks);
+        return rawTasks.map((json) => TaskVO.fromJSON(json));
+      } else {
+        window.alert('Problem with data parsing, try refresh later');
+        return [];
+      }
+    })
+    .catch((e) => {
+      window.alert('Server error:' + e.toString());
+      return [];
     });
 
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+  tasks.forEach((taskVO) => renderTask(taskVO));
 
-    console.log(taskVO);
+  console.log('> tasks:', tasks);
+
+  const taskOperations = {
+    [DOM.Button.CREATE_TASK]: () => {
+      renderTaskPopup(
+        null,
+        'Create task',
+        'Create',
+        (taskTitle, taskDate, taskTags) => {
+          console.log('> Create task -> On Confirm');
+          const taskId = `task_${Date.now()}`;
+          const taskVO = new TaskVO(taskId, taskTitle, taskDate, taskTags);
+
+          renderTask(taskVO);
+          tasks.push(taskVO);
+
+          saveTask();
+        }
+      );
+    },
+    [DOM.Template.Task.BTN_DELETE]: (taskVO, domTask) => {
+      renderTaskPopup(
+        taskVO,
+        'Confirm delete task?',
+        'Delete',
+        (taskTitle, taskDate, taskTag) => {
+          console.log('> Delete task -> On Confirm', {
+            taskTitle,
+            taskDate,
+            taskTag,
+          });
+          const indexOfTask = tasks.indexOf(taskVO);
+          tasks.splice(indexOfTask, 1);
+          domTaskColumn.removeChild(domTask);
+          saveTask();
+        }
+      );
+    },
+    [DOM.Template.Task.BTN_EDIT]: (taskVO, domTask) => {
+      renderTaskPopup(
+        taskVO,
+        'Update task',
+        'Update',
+        (taskTitle, taskDate, taskTag) => {
+          console.log('> Update task -> On Confirm', {
+            taskTitle,
+            taskDate,
+            taskTag,
+          });
+          taskVO.title = taskTitle;
+          const domTaskUpdated = renderTask(taskVO);
+          domTaskColumn.replaceChild(domTaskUpdated, domTask);
+          saveTask();
+        }
+      );
+    },
   };
 
-  let resetForm = () => {
-    inpTitle.value = '';
-    inpDate.value = '';
-    tags.value = '';
+  domTaskColumn.onclick = (e) => {
+    e.stopPropagation();
+    console.log('domTaskColumn', e.target);
+    const domTaskElement = e.target;
+    const taskBtn = domTaskElement.dataset.btn;
+
+    const isNotTaskBtn = !taskBtn;
+    if (isNotTaskBtn) return;
+
+    const allowedButtons = [
+      DOM.Template.Task.BTN_EDIT,
+      DOM.Template.Task.BTN_DELETE,
+    ];
+    if (!allowedButtons.includes(taskBtn)) return;
+
+    let taskId;
+    let domTask = domTaskElement;
+    do {
+      domTask = domTask.parentNode;
+      taskId = domTask.dataset.id;
+    } while (!taskId);
+
+    const taskVO = tasks.find((task) => task.id === taskId);
+    console.log('> taskVO:', taskVO);
+
+    const taskOperation = taskOperations[taskBtn];
+    if (taskOperation) {
+      taskOperation(taskVO, domTask);
+    }
   };
 
-  domBtnConfirm.onclick = () => {
-    console.log('conmirm');
-    const taskVO = new TaskVO(inpTitle.value, inpDate.value, tags.value);
-    const taskView = domTask.cloneNode(true);
+  getDOM(DOM.Button.CREATE_TASK).onclick = () => {
+    console.log('> domPopupCreateTask.classList');
+    renderTaskPopup(
+      null,
+      'Create task',
+      'Create',
+      (taskTitle, taskDate, taskTags) => {
+        console.log('> Create task -> On Confirm');
+        const taskId = `task_${Date.now()}`;
+        const taskVO = new TaskVO(taskId, taskTitle, taskDate, taskTags);
 
-    QUERY(taskView, Dom.Template.Task.TITLE).innerText = taskVO.title;
-    QUERY(taskView, Dom.Template.Task.DATE).innerText = taskVO.date;
-    QUERY(taskView, Dom.Template.Task.COUTRIES).innerText = taskVO.tag;
+        renderTask(taskVO);
+        tasks.push(taskVO);
 
-    domTask.parentNode.prepend(taskView);
-    tasks.push(taskVO);
-
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-
-    console.log('confirm', taskVO);
-
-    onClousePopup();
-    resetForm();
+        saveTask();
+      }
+    );
   };
-  tagsList();
-};
+
+  function renderTask(taskVO) {
+    const domTaskClone = domTemplateTask.cloneNode(true);
+    domTaskClone.dataset.id = taskVO.id;
+    QUERY(domTaskClone, DOM.Template.Task.TITLE).innerText = taskVO.title;
+    domTaskColumn.prepend(domTaskClone);
+    return domTaskClone;
+  }
+
+  async function renderTaskPopup(
+    taskVO,
+    popupTitle,
+    confirmText,
+    processDataCallback
+  ) {
+    const domPopupContainer = getDOM(DOM.Popup.CONTAINER);
+    const domSpinner = domPopupContainer.querySelector('.spinner');
+
+    domPopupContainer.classList.remove('hidden');
+
+    const onClosePopup = () => {
+      document.onkeyup = null;
+      domPopupContainer.children[0].remove();
+      domPopupContainer.append(domSpinner);
+      domPopupContainer.classList.add('hidden');
+    };
+
+    const TaskPopup = (await import('./src/view/popup/TaskPopup')).default;
+    const taskPopupInstance = new TaskPopup(
+      popupTitle,
+      Tags,
+      confirmText,
+      (taskTitle, taskDate, taskTags) => {
+        console.log('Main -> renderTaskPopup: confirmCallback', {
+          taskTitle,
+          taskDate,
+          taskTags,
+        });
+        processDataCallback(taskTitle, taskDate, taskTags);
+        onClosePopup();
+      },
+      onClosePopup
+    );
+
+    if (taskVO) {
+      taskPopupInstance.taskTitle = taskVO.title;
+    }
+
+    delay(1000).then(() => {
+      console.log('render 1');
+      domSpinner.remove();
+      document.onkeyup = (e) => {
+        if (e.key === 'Escape') {
+          onClosePopup();
+        }
+      };
+      domPopupContainer.append(taskPopupInstance.render());
+    });
+
+    console.log('render 0');
+  }
+
+  function saveTask() {
+    localStorage.setItem(KEY_LOCAL_TASKS, JSON.stringify(tasks));
+  }
+}
+
+main();

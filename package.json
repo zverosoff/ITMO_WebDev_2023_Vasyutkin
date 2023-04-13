@@ -6,21 +6,26 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "e2e:open": "cypress open",
+    "server:json": "json-server ./db.json -w"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.42",
     "@unocss/preset-icons": "^0.50.6",
     "@unocss/preset-uno": "^0.50.6",
     "@unocss/preset-web-fonts": "^0.50.6",
-    "@unocss/vite": "^0.50.6",
+    "@unocss/reset": "^0.50.6",
     "autoprefixer": "^10.4.14",
+    "cypress": "^12.10.0",
     "postcss": "^8.4.21",
+    "prettier": "^2.8.7",
     "tailwindcss": "^3.3.0",
     "unocss": "^0.50.6",
     "vite": "^4.2.0"
   },
-  "dependencies": {
-    "@unocss/reset": "^0.50.6"
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": true
   }
 }
